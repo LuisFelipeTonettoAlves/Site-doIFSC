@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>negonego</title>
+    <link rel="stylesheet" href="cata.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <script defer src="carrinho.js"></script>
+</head>
+<body>
+    <header>
+        <div class="interface">
+            <div class="logo">
+                <a href="zaza.html">
+                    <img src="logo 2.png" alt="Logo dos guri" class="guri">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="zaza.html">Início</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
+                </ul>
+            </nav>
+            <div class="contats">
+                <a href="contato.html">
+                    <button>Contato</button>
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="catalog">
+            <div class="product" data-name="Bone Aprove" data-price="50">
+                <img src="bone aprove.jfif" alt="Bone Aprove">
+                <h3>Bone Aprove</h3>
+                <p>Se você quiser ficar muito no estilo.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Corrente Cruz" data-price="80">
+                <img src="corrente deus.jfif" alt="Corrente Cruz">
+                <h3>Corrente Cruz</h3>
+                <p>Algo bem chamativo pra quem gosta.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Chaveiro Cruz" data-price="20">
+                <img src="chaveiro deus.jfif" alt="Chaveiro Cruz">
+                <h3>Chaveiro Cruz</h3>
+                <p>Para quem tem a vibe mais religiosa.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Chaveiro Miranha" data-price="30">
+                <img src="chaveiro miranha.jfif" alt="Chaveiro Miranha">
+                <h3>Chaveiro Miranha</h3>
+                <p>Esse chaveiro é algo muito diferenciado.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Cinto LX" data-price="100">
+                <img src="cinti LX.jfif" alt="Cinto LX">
+                <h3>Cinto LX</h3>
+                <p>Esse cinto é mais diferenciado.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Cinto Cyper" data-price="90">
+                <img src="cinto cyper.jfif" alt="Cinto Cyper">
+                <h3>Cinto Cyper</h3>
+                <p>Esse cinto tem a mesma pegada.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Cinto D" data-price="110">
+                <img src="cinto d.jfif" alt="Cinto D">
+                <h3>Cinto D</h3>
+                <p>Esse cinto além de ser lindo, fica muito estiloso.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Corrente" data-price="70">
+                <img src="corrente dd.jfif" alt="Corrente">
+                <h3>Corrente</h3>
+                <p>Essa correntinha também é algo diferenciado.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Bone Balihai" data-price="50">
+                <img src="bone balihai.jfif" alt="Bone Balihai">
+                <h3>Bone Balihai</h3>
+                <p>Esse boné tem a mesma pegada do primeiroo.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product" data-name="Gorro Bege" data-price="40">
+                <img src="gorro.jfif" alt="Gorro Bege">
+                <h3>Gorro Bege</h3>
+                <p>Esse gorro atende mais o público estiloso.</p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+        </section>
+        <section class="cart">
+            <h2>Meu Carrinho</h2>
+            <ul id="cart-items"></ul>
+            <div class="cart-summary">
+                <p>Total: R$<span id="cart-total">0.00</span></p>
+                <button id="checkout">Finalizar Compra</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+
+<script>
+// carrinho.js
+const cartItems = document.getElementById('cart-items');
+const cartTotal = document.getElementById('cart-total');
+const addToCartButtons = document.querySelectorAll('.add-to-cart');
+let cart = [];
+
+// Função para atualizar o carrinho
+function updateCart() {
+    cartItems.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+        const li = document.createElement('li');
+        li.innerHTML = `${item.name} - R$${item.price.toFixed(2)} 
+                        <button class="remove-item" data-index="${index}">Remover</button>`;
+        cartItems.appendChild(li);
+    });
+
+    cartTotal.textContent = total.toFixed(2);
+
+    const removeButtons = document.querySelectorAll('.remove-item');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', removeFromCart);
+    });
+}
+
+// Adicionar item ao carrinho
+function addToCart(event) {
+    const product = event.target.closest('.product');
+    const name = product.getAttribute('data-name');
+    const price = parseFloat(product.getAttribute('data-price'));
+
+    cart.push({ name, price });
+    updateCart();
+}
+
+// Remover item do carrinho
+function removeFromCart(event) {
+    const index = event.target.getAttribute('data-index');
+    cart.splice(index, 1);
+    updateCart();
+}
+
+// Adicionar eventos aos botões de "Adicionar ao Carrinho"
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', addToCart);
+});
+
+// Evento para finalizar compra
+const checkoutButton = document.getElementById('checkout');
+checkoutButton.addEventListener('click', () => {
+    if (cart.length === 0) {
+        alert('O carrinho está vazio!');
+    } else {
+        alert('Compra finalizada com sucesso!');
+        cart = [];
+        updateCart();
+    }
+});
+</script>
+
+<style>
+    @media screen and (min-width: 1920px) and (min-height: 1080px) {
+body {
+    background-color: #333;
+    color: #ffffff;
+    font-family: 'Dancing Script', cursive;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    border-radius: 30px;
+    font-size: 18px;
+        margin: 0 auto;
+        max-width: 1920px;
+        overflow-x: hidden;
+}
+
+.product {
+    background-color: #444;
+    border-radius: 8px;
+    padding: 20px; /* Diminui o espaço interno */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+        height: 350px;
+        width: 300px;
+    
+    position: relative;
+    overflow: hidden;
+}
+
+.product img {
+    height: 200px; /* Diminui a altura da imagem */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px; /* Ajusta o espaçamento abaixo da imagem */
+}
+    }
+
+.product h3 {
+    font-size: 18px; /* Reduz o tamanho do texto do título */
+    margin-bottom: 10px;
+}
+
+.product button {
+    padding: 8px 20px; /* Diminui o tamanho do botão */
+    font-size: 14px; /* Ajusta o tamanho da fonte no botão */
+}
+button {
+    background-color: rebeccapurple;
+    color: #ffffff;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 80px #ffffff;
+    color: #ffffff;
+    padding: 10px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgb(138, 43, 226);
+    border: 0;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 3s;
+}
+@media screen and (max-width: 1280px) {
+    .product {
+        width: 200px;
+        height: 250px;
+    }
+    .product img {
+        height: 120px;
+    }
+}
+.cart {
+    display: flex;
+    flex-direction: column; /* Empilha os itens verticalmente */
+    align-items: center;    /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    background-color: #444;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;       /* Define uma largura máxima */
+    color: white;
+}
+
+.cart h2 {
+    margin-bottom: 20px;
+}
+
+.cart-summary {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#checkout {
+    margin-top: 10px;
+    width: 100%;            /* Botão ocupa toda a largura disponível */
+    max-width: 200px;       /* Define uma largura máxima */
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+}

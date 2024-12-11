@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="contati.css">
+    <title>Contato</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+   
+</head>
+<header>
+    <div class="interface">
+        <div class="logo">
+            <a href="zaza.html">
+                <img src="logo 2.png" alt="Logo dos guri" class="guri">
+            </a>
+        </div><!--logo-->
+    
+
+<nav>
+    <ul>
+        <li><a href="zaza.html" data-tab=inicio>Início</a></li>
+        <li><a href="catalogo.html" data-tab="catalogo">Catálogo</a></li>
+        <li><a href="carrinho.html" data-tab="Carrinho">Carrinho</a></li>
+    </ul>
+</nav>
+<div class="contats">
+    <a href="contato.html">
+        <button>Contato</button>
+    </a>
+</div><!--contats-->
+</div><!--interface-->
+</header>
+
+<body>
+    
+
+    <h1>Entre em Contato</h1>
+    <p>Fique à vontade para enviar sua mensagem! Responderemos o mais rápido possível.</p>
+
+    <div class="contact-form">
+        <form action="enviar_contato.php" method="POST">
+            <input type="text" name="nome" placeholder="Seu nome" required>
+            <input type="email" name="email" placeholder="Seu e-mail" required>
+            <textarea name="mensagem" placeholder="Sua mensagem" rows="5" required></textarea>
+            <input type="submit" value="Enviar Mensagem">
+        </form>
+    </div>
+    
+   
+</body>
+</html>
